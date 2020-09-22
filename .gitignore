@@ -11,3 +11,4 @@ target/
 userHome/
 tmp/
 .DS_Store
+plugins-prepared/
