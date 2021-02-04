@@ -13,3 +13,5 @@ tmp/
 .DS_Store
 plugins-prepared/
 plugins/
+github-settings.xml
+staging/

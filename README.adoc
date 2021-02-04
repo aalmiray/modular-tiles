@@ -1,6 +1,9 @@
 = Modular Tiles
+:layrry-version: 1.0.0.Alpha1
 
 A sample modular JavaFX application configured with link:https://github.com/moditect/layrry/[Layrry].
+
+image::javafx-layrry.gif[Modular JavaFX tiles based on Layrry]
 
 == Build
 
@@ -8,10 +11,12 @@ A sample modular JavaFX application configured with link:https://github.com/modi
 
 - JDK 11
 - Maven 3.6.3 or Gradle 6+ (project includes wrappers for each)
-- Layrry 1.0-SNAPSHOT
+- Layrry {layrry-version}
+- link:https://github.com/jbangdev/jbang[jbang] (optional)
 
-**NOTE**: Layrry has yet to be published to Maven Central. You have to build your own snapshot for the time being.
-JDK 14 is needed to build Layrry.
+Download Layrry from link:https://github.com/moditect/layrry/releases/tag/{layrry-version}[], or install it via
+link:https://sdkmain.io[SDKMAN!], or build it from source.
+JDK 11 is needed to build Layrry.
 
 ```sh
 $ git clone https://github.com/moditect/layrry.git
@@ -33,49 +38,37 @@ $ ./mvnw install
 $ ./gradlew assemble publishToMavenLocal
 ```
 
-Plugins will be placed under `plugins-prepared` at the root.
+Plugins will be placed under `staging/plugins-prepared` at the root.
 
 == Run
 
-.Maven
+Run it directly from the layrry-launcher JAR (assuming Layrry repo was cloned adjacent to this repo)
+
+[source]
+[subs="attributes"]
+----
+$ java -jar ../../layrry/layrry-launcher/target/layrry-launcher-{layrry-version}-all.jar --layers-config staging/layers.toml --properties staging/versions.properties
+----
+
+.Binary
+If you installed the binary distribution from the release page or from SDKMAN!
+
+[source]
+[subs="attributes"]
+----
+$ layrry --layers-config staging/layers.toml --properties staging/versions.properties
+----
+
+.JBang
 
 ```sh
-$ ./mvnw -am -pl :modular-tiles-launcher exec:java
+$ jbang layrry@moditect --layers-config staging/layers.toml --properties staging/versions.properties
 ```
 
-Or run it directly from the JAR
+The `plugins` directory is located at `staging`. Copy plugins from `staging/plugins-prepared`.
 
 ```sh
-$ java -jar app/modular-tiles-launcher/target/modular-tiles-launcher-0.0.0-all.jar
+$ cp -r staging/plugins-prepared/tile-* staging/plugins
 ```
 
-.Gradle
-
-```sh
-$ ./gradlew :modular-tiles-launcher:run
-```
-
-Or run it directly from the JAR
-
-```sh
-$ java -jar app/modular-tiles-launcher/build/libs/modular-tiles-launcher-0.0.0-all.jar
-```
-
-The `plugins` directory is located at the root. Copy plugins from `plugins-prepared`.
-
-```sh
-$ cp -r plugins-prepared/tile-* plugins
-```
-
-.jbang
-
-Please note that the supplied layers config files are setup to run on OSX.
-Edit these files if you intend to run on Windows or Linux, by replacing all references
-of "mac" for "windows" or "linux" as appropriate.
-
-```sh
-$ jbang layrry@moditect --layers-config layers.yml
-$ jbang layrry@moditect --layers-config layers.toml
-```
-
-Remove and add plugins from `plugins` at any time to see dynamic behavior.
+Remove and add plugins from `staging/plugins` at any time to see dynamic behavior.

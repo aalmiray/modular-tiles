@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2020 Andres Almiray.
+ * Copyright 2020-2021 Andres Almiray.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,12 @@
  */
 package org.kordamp.tiles.model;
 
-public interface TilePlugin {
-    void register(TileContext context);
+import java.util.concurrent.CompletionStage;
 
-    void unregister(TileContext context);
+public interface TilePlugin {
+    String getId();
+
+    CompletionStage<TilePlugin> register(TileContext context);
+
+    CompletionStage<TilePlugin> unregister(TileContext context);
 }

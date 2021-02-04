@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2020 Andres Almiray.
+ * Copyright 2020-2021 Andres Almiray.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@ import org.kordamp.tiles.model.TilePlugin;
 import org.moditect.layrry.platform.PluginDescriptor;
 import org.moditect.layrry.platform.PluginLifecycleListener;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.ServiceLoader;
 
 public class TilePluginLifecycleListener implements PluginLifecycleListener {
@@ -30,18 +32,26 @@ public class TilePluginLifecycleListener implements PluginLifecycleListener {
     public void pluginAdded(PluginDescriptor plugin) {
         ModuleLayer layer = plugin.getModuleLayer();
 
-        ServiceLoader<TilePlugin> plugins = ServiceLoader.load(layer, TilePlugin.class);
-        plugins.forEach(tilePlugin -> {
+        // Load all plugins
+        ServiceLoader<TilePlugin> loader = ServiceLoader.load(layer, TilePlugin.class);
+
+        // collect and filter plugins by _this_ layer
+        Collection<TilePlugin> plugins = new LinkedHashSet<>();
+        loader.forEach(tilePlugin -> {
             if (tilePlugin.getClass().getModule().getLayer() == layer) {
-                tilePlugin.register(TileContext.getInstance());
+                plugins.add(tilePlugin);
             }
         });
+
+        // register plugins of _this_ layer
+        PluginRegistry.getInstance()
+            .registerPlugins(layer, plugins);
     }
 
     @Override
     public void pluginRemoved(PluginDescriptor plugin) {
-        ModuleLayer layer = plugin.getModuleLayer();
-
-        PluginRegistry.getInstance().clearPlugins(layer, TileContext.getInstance());
+        // unregister plugins of _this_ layer
+        PluginRegistry.getInstance()
+            .unregisterPlugins(plugin.getModuleLayer());
     }
 }

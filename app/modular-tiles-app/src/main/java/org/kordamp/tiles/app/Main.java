@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2020 Andres Almiray.
+ * Copyright 2020-2021 Andres Almiray.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,16 +31,16 @@ public class Main extends Application {
     private static final int TILE_HEIGHT = 150;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         View view = new View(TILE_WIDTH, TILE_HEIGHT);
 
         PerspectiveCamera camera = new PerspectiveCamera();
         camera.setFieldOfView(10);
 
-        Scene scene = new Scene(new Group(view.getContent()));
+        Scene scene = new Scene(view.getContent());
         scene.setCamera(camera);
 
-        PluginRegistry.getInstance().initializeDeferredPlugins(TileContext.getInstance());
+        PluginRegistry.getInstance().initializeDeferredPlugins();
 
         stage.setTitle("Modular TilesFX");
         stage.setScene(scene);
@@ -50,7 +50,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         TileContext.getInstance().stop();
         System.exit(0);
     }

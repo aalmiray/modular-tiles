@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2020 Andres Almiray.
+ * Copyright 2020-2021 Andres Almiray.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import org.kordamp.tiles.core.TilePluginLifecycleListener;
 import org.kordamp.tiles.model.TilePlugin;
 import org.moditect.layrry.platform.PluginLifecycleListener;
@@ -27,8 +26,8 @@ module org.kordamp.tiles.core {
     requires eu.hansolo.tilesfx;
     requires javafx.base;
     requires javafx.graphics;
-    requires javafx.controls;
-    requires org.moditect.layrry.platform;
+    requires transitive javafx.controls;
+    requires transitive org.moditect.layrry.platform;
 
     uses TilePlugin;
     provides PluginLifecycleListener with TilePluginLifecycleListener;

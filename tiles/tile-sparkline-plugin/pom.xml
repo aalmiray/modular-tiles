@@ -2,7 +2,7 @@
 
     SPDX-License-Identifier: Apache-2.0
 
-    Copyright 2020 Andres Almiray.
+    Copyright 2020-2021 Andres Almiray.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.kordamp.tiles</groupId>
         <artifactId>modular-tiles-common</artifactId>
-        <version>0.0.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>tile-sparkline-plugin</artifactId>
@@ -47,7 +47,7 @@
                         <id>copy-tiles</id>
                         <phase>install</phase>
                         <goals>
-                            <goal>unpack</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <artifactItems>
@@ -55,9 +55,25 @@
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>${project.artifactId}</artifactId>
                                     <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${session.executionRootDirectory}/staging/plugins-prepared</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${session.executionRootDirectory}/staging/plugins-prepared</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
                                     <type>tar.gz</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${session.executionRootDirectory}/plugins-prepared</outputDirectory>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${session.executionRootDirectory}/staging/plugins-prepared</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>

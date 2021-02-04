@@ -2,7 +2,7 @@
 
     SPDX-License-Identifier: Apache-2.0
 
-    Copyright 2020 Andres Almiray.
+    Copyright 2020-2021 Andres Almiray.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.kordamp.tiles</groupId>
         <artifactId>modular-tiles-root</artifactId>
-        <version>0.0.0</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>modular-tiles-common</artifactId>
@@ -51,6 +51,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.2.0</version>
                     <configuration>
                         <skipAssembly>true</skipAssembly>
                     </configuration>
