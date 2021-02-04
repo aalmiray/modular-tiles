@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: mvn --batch-mode install --file pom.xml -DskipTests
 
-      - name: 'Release early-access artifacts'
+      - name: 'Release artifacts'
         uses: marvinpinto/action-automatic-releases@latest
         with:
           automatic_release_tag: 'early-access'
@@ -49,6 +49,6 @@ jobs:
           prerelease: true
           title: "Modular Tiles"
           files: |
-            modular-tiles/staging/layers-remote.toml
-            modular-tiles/staging/versions.properties
-            modular-tiles/staging/modular-settings.xml
+            staging/layers-remote.toml
+            staging/versions.properties
+            staging/modular-settings.xml
